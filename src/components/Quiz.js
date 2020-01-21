@@ -1,7 +1,27 @@
 import React, { Component } from "react";
-import App from './../App';
+import QuizOptions from "./QuizOptions";
 
 class Quiz extends Component {
+  constructor(props) {
+    super(props);
+    this.renderOptions = this.renderOptions.bind(this);
+    let riddle = {
+      resultsArray: [6, 7, 8, 9],
+      field1: 5,
+      field2: 8,
+      answer: 15
+    };
+    this.state = { riddle };
+  }
+  renderOptions() {
+    return (
+      <div className='options'>
+        <QuizOptions />
+        <QuizOptions />
+        <QuizOptions />
+      </div>
+    );
+  }
   render() {
     return (
       <div className='quiz'>
@@ -10,22 +30,9 @@ class Quiz extends Component {
             What is the sum of <span className='text-info'>5</span> and{" "}
             <span className='text-info'>10</span> ?{" "}
           </p>
-          <div className='options'>
-            <div className='fields'>
-              <div className='field-block'>20</div>
-            </div>
-            <div className='fields'>
-              <div className='field-block'>30</div>
-            </div>
-            <div className='fields'>
-              <div className='field-block'>40</div>
-            </div>
-            <div className='fields'>
-              <div className='field-block'>50</div>
-            </div>
-          </div>
-          <div className="play-again">
-            <a className="button">Play Again</a>
+          {this.renderOptions()}
+          <div className='play-again'>
+            <a className='button'>Play Again</a>
           </div>
         </div>
       </div>
