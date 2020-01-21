@@ -1,9 +1,9 @@
 import React from "react";
 
-const QuizOptions = () => {
+const QuizOptions = ({ option }) => {
   return (
     <div className='fields'>
-      <div className='field-block'>20</div>
+      <div className='field-block'>{option}</div>
     </div>
   );
 };
