@@ -6,6 +6,7 @@ class Quiz extends Component {
     super(props);
     this.renderOptions = this.renderOptions.bind(this);
     this.checkResults = this.checkResults.bind(this);
+    this.playAgain = this.playAgain.bind(this);
 
     let riddle = this.playGame();
     let correct = false;
@@ -57,7 +58,12 @@ class Quiz extends Component {
       field2: field2,
       answer: result
     };
-    return riddle;
+    if(this.state && this.state.gameOver) {
+      this.setState({ riddle: riddle});
+    } else {
+      return riddle;
+    }
+    
   }
   checkResults(option) {
     if (this.state.riddle.answer === option) {
@@ -79,6 +85,17 @@ class Quiz extends Component {
       </div>
     );
   }
+  renderMessage() {
+    if (this.state.correct) {
+      return <h3>Good job, Hit the button below to play the game again!</h3>;
+    } else {
+      return <h3> Ooopps!, Hit the button below to play the game again!</h3>;
+    }
+  }
+  playAgain() {
+    this.setState({ correct: false, gameOver: false});
+    this.playGame();
+  }
   render() {
     return (
       <div className='quiz'>
@@ -89,8 +106,9 @@ class Quiz extends Component {
             <span className='text-info'>{this.state.riddle.field2}</span> ?{" "}
           </p>
           {this.renderOptions()}
+          <div className={`after ${this.state.correct ? 'correct': 'wrong'} ${!this.state.gameOver ? 'hide': ""}`}>{this.renderMessage()}</div>
           <div className='play-again'>
-            <a className='button'>Play Again</a>
+            <a className='button' onClick={this.playAgain}>Play Again</a>
           </div>
         </div>
       </div>
