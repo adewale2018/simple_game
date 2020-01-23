@@ -106,7 +106,7 @@ class Quiz extends Component {
             <span className='text-info'>{this.state.riddle.field2}</span> ?{" "}
           </p>
           {this.renderOptions()}
-          <div className={`after ${this.state.correct ? 'correct': 'wrong'} ${!this.state.gameOver ? 'hide': ""}`}>{this.renderMessage()}</div>
+          <div className={`after ${this.state.correct ? 'correct animated zoomInUp': 'wrong animated zoomInDown'} ${!this.state.gameOver ? 'hide': ""}`}>{this.renderMessage()}</div>
           <div className='play-again'>
             <a className='button' onClick={this.playAgain}>Play Again</a>
           </div>
