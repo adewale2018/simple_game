@@ -5,8 +5,12 @@ class Quiz extends Component {
   constructor(props) {
     super(props);
     this.renderOptions = this.renderOptions.bind(this);
+    this.checkResults = this.checkResults.bind(this);
+
     let riddle = this.playGame();
-    this.state = { riddle };
+    let correct = false;
+    let gameOver = false;
+    this.state = { riddle, correct, gameOver };
   }
   randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -21,7 +25,6 @@ class Quiz extends Component {
       if (randomNumberArray.indexOf(randomNumber) > -1) continue;
       randomNumberArray.push(randomNumber);
     }
-    console.log(randomNumberArray);
     for (let i = 0; i < 3; i++) {
       let addSubtract = this.randomNumber(0, 1);
       let result = sum;
@@ -44,8 +47,10 @@ class Quiz extends Component {
     let result = field1 + field2;
     let resultsArray = this.generateRandomOptions(result);
     resultsArray.push(result);
-    resultsArray.sort(function(a, b)  { return 0.5 - Math.random()});
-    console.log(resultsArray);
+    resultsArray.sort(function(a, b) {
+      return 0.5 - Math.random();
+    });
+
     let riddle = {
       resultsArray: resultsArray,
       field1: field1,
@@ -54,11 +59,22 @@ class Quiz extends Component {
     };
     return riddle;
   }
+  checkResults(option) {
+    if (this.state.riddle.answer === option) {
+      this.setState({ correct: true, gameOver: true });
+    } else {
+      this.setState({ correct: false, gameOver: true });
+    }
+  }
   renderOptions() {
     return (
       <div className='options'>
         {this.state.riddle.resultsArray.map((option, i) => (
-          <QuizOptions option={option} key={i} />
+          <QuizOptions
+            option={option}
+            key={i}
+            checkResults={option => this.checkResults(option)}
+          />
         ))}
       </div>
     );
