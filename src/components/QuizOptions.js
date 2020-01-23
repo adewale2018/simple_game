@@ -5,7 +5,7 @@ const QuizOptions = ({ option, checkResults }) => {
     return checkResults(option);
   }
   return (
-    <div className='fields' onClick={callParentsOption}>
+    <div className='fields animated zoomIn' onClick={callParentsOption}>
       <div className='field-block'>{option}</div>
     </div>
   );

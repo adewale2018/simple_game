@@ -6,7 +6,7 @@ import Quiz from './components/Quiz';
 function App() {
   return (
     <div className="App">
-      <h3>A Simple React Game...</h3>
+      <h1>*** A Simple React Game ***</h1>
       <Quiz />
     </div>
   );
